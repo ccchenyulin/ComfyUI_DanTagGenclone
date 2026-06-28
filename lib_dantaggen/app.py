@@ -1,10 +1,12 @@
-import subprocess
+import sys
 
-subprocess.run(
-    "pip install flash-attn --no-build-isolation",
-    env={"FLASH_ATTENTION_SKIP_CUDA_BUILD": "TRUE"},
-    shell=True,
-)
+try:
+    import flash_attn  # noqa: F401
+except ImportError:
+    raise ImportError(
+        "flash-attn is required but not installed. "
+        "Install it with: pip install flash-attn --no-build-isolation"
+    )
 
 from time import time_ns
 
